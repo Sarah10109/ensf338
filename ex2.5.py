@@ -1,7 +1,11 @@
-import json
+import timeit
 
+
+before = """
+import json
 largeFile = open("large-file.json", encoding="utf8").read()
 largeFile = json.loads(largeFile) 
+
 
 def change(obj):
     if isinstance(obj, dict):
@@ -14,11 +18,16 @@ def change(obj):
         for item in obj:
             change(item)
 
+"""
+testcode = """
+
 change(largeFile)
+"""
 
-reverse = list(reversed(largeFile))
+time = timeit.timeit(stmt=testcode,setup=before, number=10)
 
-with open('output.2.3.json', 'w') as f:
-    json.dump(reverse, f, indent= 4)
+average = time/10
+print(average)
+
 
 
