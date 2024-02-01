@@ -2,7 +2,6 @@ import timeit
 import matplotlib.pyplot as plt
 import numpy as np
 
-before = """
 import json
 largeFile = open("large-file.json", encoding="utf8").read()
 largeFile = json.loads(largeFile) 
@@ -21,14 +20,9 @@ def change(obj):
                 change(item)
                 if i == 1000:      
                     break  
-"""
-
-testcode = """
-change(largeFile)
-"""
 
 
-time = timeit.repeat(stmt=testcode,setup=before, repeat=1000, number=1)
+time = timeit.repeat(lambda: change(largeFile),repeat=1000, number=1)
 
 arrTime = np.array(time)
 

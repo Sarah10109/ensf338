@@ -2,7 +2,6 @@ import timeit
 import matplotlib.pyplot as plt
 import numpy as np
 
-before = """
 import json
 largeFile = open("large-file.json", encoding="utf8").read()
 largeFile = json.loads(largeFile) 
@@ -21,29 +20,14 @@ def change(obj, record):
                 change(item, record)
                 if i == record:      
                     break  
-"""
 
-testcode1 = """
-change(largeFile,1000)
-"""
-testcode2 = """
-change(largeFile,2000)
-"""
-testcode3 = """
-change(largeFile,5000)
-"""
+time1 = timeit.timeit(lambda: change(largeFile,1000), number=100)
 
-testcode4 = """
-change(largeFile,10000)
-"""
+time2 = timeit.timeit(lambda: change(largeFile,2000), number=100)
 
-time1 = timeit.timeit(stmt=testcode1,setup=before, number=100)
+time3 = timeit.timeit(lambda: change(largeFile,5000), number=100)
 
-time2 = timeit.timeit(stmt=testcode2,setup=before, number=100)
-
-time3 = timeit.timeit(stmt=testcode3,setup=before, number=100)
-
-time4 = timeit.timeit(stmt=testcode4,setup=before, number=100)
+time4 = timeit.timeit(lambda: change(largeFile,10000), number=100)
 
 records = np.array([1000, 2000, 5000, 10000])
 
@@ -71,4 +55,3 @@ plt.xlabel('Number of Records')
 plt.ylabel('Average Procseeing Time')
 plt.title('Number of Records vs. Average Procseeing Time')
 plt.savefig("output.3.2.png")
-
