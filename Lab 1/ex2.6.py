@@ -14,7 +14,6 @@ time = timeit.timeit(lambda: fact(100), number=10000)
 
 def forfact(n):
     if(n > 100):
-        print("you done fucked up")
         exit()
     
     total = []
@@ -24,7 +23,6 @@ def forfact(n):
         
 def listfact(n):
     if(n > 100):
-        print("you done fucked up")
         exit()
     listn = [fact(i) for i in range(n, 100)]
 
