@@ -35,8 +35,6 @@ while(i != 22315):
             j = j + 1
     """
     #Checks for words containing no letters and removes them. 
-    #This code didnt effect the average so im unsure if I even need it
-
 
     words += len(oneline)
     
