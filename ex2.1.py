@@ -7,8 +7,6 @@ def do_stuff():
     except ValueError:
         print("Incorrect input... goodbye")
         return 
-
-    #missing user input error checking
     if number < 2:
         print("No")
     else:
@@ -17,7 +15,6 @@ def do_stuff():
                 print("No")
                 return
         print("Yes")
-        #either " or ' work but in code had syntax error from using an upper comma ’
     return
 #test the function
 do_stuff()
