@@ -32,3 +32,37 @@ runs until that value of n is called that amount of time. So the work
 done is only n amount so it would be O(n).
 '''
 
+# Q6
+import timeit
+import numpy as np
+import matplotlib.pyplot as plt
+
+def func(n):
+    if n == 0 or n == 1:
+        return n
+    else:
+        return func(n-1) + func(n-2)
+
+nums = []
+ogCode = []
+impCode = []
+for i in range (0, 36):
+    nums.append(i)
+    ogCode.append(timeit.timeit(lambda: func(i), number=1))
+    impCode.append(timeit.timeit(lambda: func2(i), number=1))
+
+numAr = np.array(nums)
+ogCodeAr = np.array(ogCode)
+impCodeAr = np.array(impCode)
+plt.scatter(numAr,ogCodeAr )
+plt.xlabel('Integer')
+plt.ylabel('Procseeing Time')
+plt.title('Integers vs. Procseeing Time for Original Code')
+plt.savefig("ex1.6.1.jpg")
+plt.clf()
+plt.scatter(numAr,impCodeAr)
+plt.xlabel('Integer')
+plt.ylabel('Procseeing Time')
+plt.title('Integers vs. Procseeing Time for Improved Version')
+plt.savefig("ex1.6.2.jpg")
+
