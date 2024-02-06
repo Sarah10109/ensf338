@@ -93,10 +93,6 @@ plt.xlabel("Number of Elements")
 plt.ylabel("Average Time")
 plt.title("Binary Search")
 
-
-
-
-
 plt.show()
 
 
