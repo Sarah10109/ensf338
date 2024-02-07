@@ -2,6 +2,7 @@
 
 Two aspects that make interpolation search better than binary search:
     a. Interpolation search is more efficient than binary search. Rather than starting from the middle point of an array,  it picks a point closer to where the item of interest is likely to be found.
+    
     b. Interpolation search works better for a sorted array. If the item of interest is known to be near the middle of the array, for example, the search will start by choosing a point closer to the right side of the array. It requires less steps to find the item as well.
 
 ## 2. Interpolation search assumes that data is uniformly distributed What happens this data follows a different distribution? Will the performance be affected? Why? [0.2 pts]
