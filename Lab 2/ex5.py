@@ -78,7 +78,7 @@ element = [1000, 2000, 4000, 8000, 16000, 32000]
 
 avgL = np.array([avgL1, avgL2, avgL3, avgL4, avgL5, avgL6])
 avgB = np.array([avgB1, avgB2, avgB3, avgB4, avgB5, avgB6])
-print(avgB)
+
 # Linear
 plt.scatter(element, avgL)
 plt.xlabel("Number of Elements")
