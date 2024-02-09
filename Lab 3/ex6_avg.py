@@ -1,5 +1,6 @@
 import random
 import timeit
+import numpy as np
 
 # Q1  (6.2.1)
 
@@ -69,3 +70,5 @@ for item in arrayLengths:
 
 
 # plot the average time vs list length
+
+# plot of array length vs. linear search performance time
