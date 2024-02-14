@@ -71,13 +71,15 @@ arrayLengths = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000]
 avg_times_linear = []
 avg_times_binary = []
 
+avg_times_quicksort = []
+
 for item in arrayLengths:
     # create an array of the specified length
     arrayNum = [a for a in range(item)]
     
     linear_performance_times = [] # empty array to store the 100 different performance times for linear search on array of spefied length
     binary_performance_times = [] # empty array to store the 100 different performance times for binary search on array of specified length
-   
+
     # assess performance on 100 randomized tasks
     for i in range(100):
         random.shuffle(arrayNum)
@@ -85,10 +87,9 @@ for item in arrayLengths:
 
         quicksort_array(arrayNum, 0, len(arrayNum) - 1) # sort array before doing binary search
         timeBinary = timeit.timeit(lambda: binary_search(arrayNum, 0, len(arrayNum) - 1, 10), number = 1)
-       
         linear_performance_times.append(timeLinear)
         binary_performance_times.append(timeBinary)
-    
+      
     # compute average time taken
     linear_avg = sum(linear_performance_times)/len(linear_performance_times)
     binary_avg = sum(binary_performance_times)/len(binary_performance_times)
