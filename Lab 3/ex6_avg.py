@@ -27,10 +27,15 @@ def partition(arr, low, high):
         if (arr[index] <= pivot_point):
             i += 1
             # swap element at i with element at index
-            (arr[i], arr[index]) = (arr[index], arr[i])
+            placeholder = arr[i]
+            arr[i] = arr[index]
+            arr[index] = placeholder
+
     
     # Swap pivot with greater element at i
-    (arr[i + 1], arr[high]) = (arr[high], arr[i + 1])
+    temp = arr[i + 1]
+    arr[i + 1] = arr[high]
+    arr[high] = temp
 
     # Return partition position
     return i + 1
