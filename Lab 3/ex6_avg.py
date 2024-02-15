@@ -101,10 +101,6 @@ for item in arrayLengths:
     avg_times_linear.append(linear_avg)
     avg_times_binary.append(binary_avg)
 
-    # print statement to check output
-    print("Average time for linear search on list of length %d: %f" % (item, linear_avg))
-    print("Average time for binary search on list of length %d: %f" % (item, binary_avg))
-
 
 # Q4 (6.2.4) - Plotting
 # Plot the above and discuss which algorithm is faster
