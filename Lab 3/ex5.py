@@ -44,24 +44,18 @@ def insertion_sort(array):
 sizes = [i * 25 for i in range(1, 11)]
 time = []
 
-for i in range(0, 10):
-    globals()[f'array{i+1}'] = [random.randint(1, 100) for _ in range(sizes[i])]
-
-# Binary
-for i in range (1,11):    
-    time.append(timeit.timeit(lambda: insertion_sortB(globals()[f'array{i}']), number=1000)/1000)
+for i in range(10):
+    array = [random.randint(1, 1000) for _ in range(sizes[i])]
+    time.append(timeit.timeit(lambda: insertion_sortB(array.copy()), number=100)/100)
 
 plt.plot(sizes, time, label="Binary", color='blue')
 time.clear()   
 
-# Traditional
-
-for i in range (1,11):    
-    time.append(timeit.timeit(lambda: insertion_sort(globals()[f'array{i}']), number=1000)/1000)
+for i in range(10):
+    array = [random.randint(1, 1000) for _ in range(sizes[i])]
+    time.append(timeit.timeit(lambda: insertion_sort(array.copy()), number=100)/100)
 
 plt.plot(sizes, time, label="Traditional", color='green')
-
-
 plt.xlabel('Size of Array')
 plt.ylabel('Time Taken')
 plt.title('Time taken of Each Algorithm in Average Case')
@@ -69,6 +63,9 @@ plt.legend()
 plt.show()
 
 
-
-
-
+''''
+Q4
+The binary insertion sort ran a bit faster than the "traditional" insertion sort. Both binary 
+and traditional have a complexity of O(n^2). However binary reduces the number of comparisons 
+compared to traditional sort.   
+'''
