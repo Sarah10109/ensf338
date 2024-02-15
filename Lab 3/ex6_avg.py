@@ -109,14 +109,14 @@ for item in arrayLengths:
 plt.plot(arrayLengths, avg_times_linear)
 plt.xlabel('Array Length')
 plt.ylabel('Performance Time')
-plt.title('Array Length vs. Linear Search Performance Time in Average Case')
+plt.title('Array Length vs. Linear Search Performance Time')
 plt.show()
 
 # plot of array length vs. binary search performance time
 plt.plot(arrayLengths, avg_times_binary)
 plt.xlabel('Array Length')
 plt.ylabel('Performance Time')
-plt.title('Array Length vs. Binary Search Performance Time in Average Case')
+plt.title('Array Length vs. Binary Search Performance Time')
 plt.show()
 
 # According to the graphs, binary search is faster as it has a complexity of O(logn) whereas
