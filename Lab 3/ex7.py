@@ -26,11 +26,6 @@ def binary_search(array, first, last, num, initial_midpoint=None):
 # for each task. You can use whatever strategy you want to check
 # different midpoints. Then, choose the best midpoint for each task 
 
-# arrMain = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# midpoints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# arrTasks = [0, 4, 3, 5]
-
-
 with open('ex7data.json', 'r') as arrayFile:
     data = json.load(arrayFile)
 
