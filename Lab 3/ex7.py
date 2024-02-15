@@ -41,13 +41,10 @@ with open('ex7tasks.json', 'r') as taskFile:
 
 arrTasks = data1
 
-midpoints = []
-for k in arrMain:
-    midpoints[k] = arrMain[k] 
+midpoints = data1
 
 def time_search_tasks(arrMain, arrTasks, midpoints):
-    # Initialize a dictionary to store the best midpoint for each task
-    #best_midpoints = {}
+    # an array to store the best midpoint for each task
     best_midpoints = []
 
     # Iterate over each task
@@ -59,13 +56,12 @@ def time_search_tasks(arrMain, arrTasks, midpoints):
         for midpoint in midpoints:
             elapsed_time = timeit.timeit(lambda: binary_search(arrMain, 0, len(arrMain) - 1, task, initial_midpoint=midpoint), number=1)
 
-            # If this midpoint gives a better time, update the best midpoint and best time
+            # update the best midpoint and best time
             if best_time is None or elapsed_time < best_time:
                 best_time = elapsed_time
                 best_midpoint = midpoint
 
         # Store the best midpoint for this task
-        #best_midpoints[task] = best_midpoint
         best_midpoints.append(best_midpoint)
 
     return best_midpoints
