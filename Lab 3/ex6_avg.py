@@ -93,7 +93,7 @@ for item in arrayLengths:
         timeBinary = timeit.timeit(lambda: binary_search(arrayNum, 0, len(arrayNum) - 1, 10), number = 1)
         linear_performance_times.append(timeLinear)
         binary_performance_times.append(timeBinary)
-      
+    
     # compute average time taken
     linear_avg = sum(linear_performance_times)/len(linear_performance_times)
     binary_avg = sum(binary_performance_times)/len(binary_performance_times)

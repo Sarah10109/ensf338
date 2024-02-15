@@ -1,6 +1,10 @@
 import random
 import timeit
 import matplotlib.pyplot as plt
+import sys
+
+sys.setrecursionlimit(10000)
+
 # linear search 
 def linear_search(array, num):
     for i in range(len(array)):
@@ -44,7 +48,7 @@ def quicksort_array(arr, low, high):
 
 
 def binary_search(array, first, last, num):
-    quicksort_array(array)
+    quicksort_array(array, first, last)
     while first <= last:
         midpoint = (first + last) // 2
         if num == array[midpoint]:
