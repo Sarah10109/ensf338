@@ -79,3 +79,8 @@ plt.show()
 
 # 4. Comment on the graph. Does the choice of initial midpoint appear
 # to affect performance? Why do you think is that?
+
+# The choice of initial midpoint affects performance because depending on the midpoint, the binary search
+# may either go into the best case or worst case scenario. If the midpoint is equal to the desired item, then the
+# time complexity is O(1), whereas in the worst case scenario (when the desired element is either the first
+# or last element in the list), the time complexity will be O(log n).
