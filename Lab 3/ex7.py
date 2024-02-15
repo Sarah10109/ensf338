@@ -38,7 +38,7 @@ arrTasks = data1
 
 midpoints = data
 
-def time_search_tasks(arrMain, arrTasks, midpoints):
+def optimalMidpoint(arrMain, arrTasks, midpoints):
     # an array to store the best midpoint for each task
     best_midpoints = []
 
@@ -47,7 +47,7 @@ def time_search_tasks(arrMain, arrTasks, midpoints):
         best_time = None
         best_midpoint = None
 
-        # Try each midpoint
+        # iterate through each midpoint
         for midpoint in midpoints:
             elapsed_time = timeit.timeit(lambda: binary_search(arrMain, 0, len(arrMain) - 1, task, initial_midpoint=midpoint), number=1)
 
@@ -61,7 +61,7 @@ def time_search_tasks(arrMain, arrTasks, midpoints):
 
     return best_midpoints
 
-optimal_midpoints = time_search_tasks(arrMain, arrTasks, midpoints)
+optimal_midpoints = optimalMidpoint(arrMain, arrTasks, midpoints)
 print(optimal_midpoints)
 
 
