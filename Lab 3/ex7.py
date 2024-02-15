@@ -36,7 +36,7 @@ with open('ex7tasks.json', 'r') as taskFile:
 
 arrTasks = data1
 
-midpoints = data1
+midpoints = data
 
 def time_search_tasks(arrMain, arrTasks, midpoints):
     # an array to store the best midpoint for each task
