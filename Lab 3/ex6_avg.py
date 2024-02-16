@@ -87,10 +87,10 @@ for item in arrayLengths:
     # assess performance on 100 randomized tasks
     for i in range(100):
         random.shuffle(arrayNum)
-        timeLinear = timeit.timeit(lambda: linear_search(arrayNum, 10), number = 1)
+        timeLinear = (timeit.timeit(lambda: linear_search(arrayNum, 10), number = 100)/100)
 
         quicksort_array(arrayNum, 0, len(arrayNum) - 1) # sort array before doing binary search
-        timeBinary = timeit.timeit(lambda: binary_search(arrayNum, 0, len(arrayNum) - 1, 10), number = 1)
+        timeBinary = (timeit.timeit(lambda: binary_search(arrayNum, 0, len(arrayNum) - 1, 10), number = 100)/100)
         linear_performance_times.append(timeLinear)
         binary_performance_times.append(timeBinary)
     
