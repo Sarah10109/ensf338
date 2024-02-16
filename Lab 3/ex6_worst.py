@@ -48,8 +48,7 @@ def quicksort_array(arr, low, high):
 
 
 def binary_search(array, first, last, num):
-    #quicksort_array(array, first, last)
-    array.sort()
+    quicksort_array(array, first, last)
     while first <= last:
         midpoint = (first + last) // 2
         if num == array[midpoint]:
