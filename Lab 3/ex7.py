@@ -71,7 +71,7 @@ optimal_midpoints = optimalMidpoint(arrMain, arrTasks, midpoints)
 plt.scatter(arrTasks, optimal_midpoints)
 plt.xlabel('Tasks')
 plt.ylabel('Midpoints')
-plt.title('Scatterplot of Tasks and Corresponding Midpoints')
+plt.title('Scatterplot of Tasks and Corresponding Best Midpoints')
 plt.show()
 
 
