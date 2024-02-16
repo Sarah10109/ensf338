@@ -1,3 +1,7 @@
+import random
+import timeit
+import matplotlib.pyplot as plt
+
 '''
 Now, consider the tasks of searching in a sorted array
 
@@ -43,6 +47,4 @@ def linear_search(array, num):
     return -1
 
 # experiment
-
-arrayLengths = [1000, 2000, 5000, 10000]
-
+# code in progress
