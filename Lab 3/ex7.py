@@ -37,7 +37,7 @@ with open('ex7tasks.json', 'r') as taskFile:
 
 arrTasks = data1
 
-midpoints = random.sample(arrMain, 1000) #contains random selection of 1000 elements from arrMain to use as midpoint for binary search
+midpoints = random.sample(arrMain, 1000) # contains random selection of 1000 elements from arrMain to use as midpoint for binary search
 def optimalMidpoint(arrMain, arrTasks, midpoints):
     # an array to store the best midpoint for each task
     best_midpoints = []
@@ -79,6 +79,5 @@ plt.show()
 ''''
 The choice of initial midpoint affects performance because depending on the midpoint, the binary search
 may either go into the best case or worst case scenario. If the midpoint is equal to the desired item, then the
-time complexity is O(1), whereas in the worst case scenario (when the desired element is either the first
-or last element in the list), the time complexity will be O(log n).
+time complexity is O(1), whereas in the worst case scenario the time complexity will be O(log n).
 '''
