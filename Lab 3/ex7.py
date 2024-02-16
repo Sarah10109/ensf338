@@ -36,7 +36,7 @@ with open('ex7tasks.json', 'r') as taskFile:
 
 arrTasks = data1
 
-midpoints = data
+midpoints = data # another array to test every element in arrMain as a midpoint for binary search
 
 def optimalMidpoint(arrMain, arrTasks, midpoints):
     # an array to store the best midpoint for each task
