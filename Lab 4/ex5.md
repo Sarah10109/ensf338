@@ -1,6 +1,6 @@
 ### In class, we have seen two different ways to perform multiple measures with timeit: 
-## • The first uses the number parameters, as in: elapsed_time = timeit.timeit(lambda: fibonacci(1000), number=100)
-## • The second uses the repeat function, as in: times = timeit.repeat(lambda: fibonacci(1000), repeat =5, number=10)
+### • The first uses the number parameters, as in: elapsed_time = timeit.timeit(lambda: fibonacci(1000), number=100)
+### • The second uses the repeat function, as in: times = timeit.repeat(lambda: fibonacci(1000), repeat =5, number=10)
 
 ### These approaches are designed to deal with different types of measurement noise. Think about what happens when we try to time a program, and which types of issues may result in an incorrect measurement. Reflect on how the two approaches (timeit and repeat) attempt to address these issues. Discuss when it is appropriate to use one or the other. [0.5 pts]
 
