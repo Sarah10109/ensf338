@@ -98,16 +98,11 @@ for item in arrayLengths:
 # Plot the above and discuss which algorithm is faster
 
 # plot of array length vs. linear search performance time
-plt.plot(arrayLengths, avg_times_linear)
+plt.plot(arrayLengths, avg_times_linear, label="Linear search", color='green')
+plt.plot(arrayLengths, avg_times_binary, label="Binary search", color='blue')
 plt.xlabel('Array Length')
 plt.ylabel('Performance Time')
-plt.title('Array Length vs. Linear Search Performance Time')
-plt.show()
-
-# plot of array length vs. binary search performance time
-plt.plot(arrayLengths, avg_times_binary)
-plt.xlabel('Array Length')
-plt.ylabel('Performance Time')
-plt.title('Array Length vs. Binary Search Performance Time')
+plt.title('Array Length vs. Search Performance Time')
+plt.legend()
 plt.show()
 
