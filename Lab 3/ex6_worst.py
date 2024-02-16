@@ -3,7 +3,7 @@ import timeit
 import matplotlib.pyplot as plt
 import sys
 
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(20000)
 
 # linear search 
 def linear_search(array, num):
@@ -48,7 +48,8 @@ def quicksort_array(arr, low, high):
 
 
 def binary_search(array, first, last, num):
-    quicksort_array(array, first, last)
+    #quicksort_array(array, first, last)
+    array.sort()
     while first <= last:
         midpoint = (first + last) // 2
         if num == array[midpoint]:
@@ -106,3 +107,5 @@ plt.title('Array Length vs. Search Performance Time')
 plt.legend()
 plt.show()
 
+# According to the graph, linear search seems to be faster in this scenario as it has a complexity of O(n) whereas binary
+# search has a complexity of O(log n), plus the worst-case complexity for the quicksort algorithm, which is O(n^2).
