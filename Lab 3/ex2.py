@@ -78,7 +78,6 @@ time = []
 for i in range(0, 20):
     globals()[f'array{i+1}'] = list(range(sizes[i]))
 
-
 # bubble sort
 for i in range (1,21):    
     time.append(timeit.timeit(lambda: bubble_sort(globals()[f'array{i}']), number=1000)/1000)
@@ -86,6 +85,7 @@ for i in range (1,21):
 plt.plot(sizes, time, label="Bubble Sort", color='blue')
 time.clear()
 
+# Quick sort
 for i in range (1,21):    
     time.append(timeit.timeit(lambda: quickSort(globals()[f'array{i}'], 0, len(globals()[f'array{i}']) - 1, 'best'), number=1000)/1000)
 
@@ -97,7 +97,6 @@ plt.title('Time taken of Each Algorithm in Best Case')
 plt.legend()
 plt.show()
 time.clear()
-
 
 
 # worse case
@@ -126,20 +125,18 @@ plt.show()
 time.clear()
 
 
-
-
-
 # average case
 for i in range(0, 20):
     globals()[f'array{i+1}'] = [random.randint(1, 100) for _ in range(sizes[i])]
 
+# bubble sort
 for i in range (1,21):    
     time.append(timeit.timeit(lambda: bubble_sort(globals()[f'array{i}']), number=10000)/10000)
 
 plt.plot(sizes, time, label="Bubble Sort", color='blue')
 time.clear()
 
-
+# quick sort
 for i in range (1,21):    
     time.append(timeit.timeit(lambda: quickSort(globals()[f'array{i}'], 0, len(globals()[f'array{i}']) - 1, 'avg'), number=10000)/10000)
 
@@ -151,6 +148,3 @@ plt.title('Time taken of Each Algorithm in Average Case')
 plt.legend()
 plt.show()
 time.clear()
-
-
-
