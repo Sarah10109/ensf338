@@ -46,5 +46,6 @@ def linear_search(array, num):
             return i
     return -1
 
+
 # experiment
 # code in progress
