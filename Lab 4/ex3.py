@@ -48,7 +48,7 @@ time_taken = []
 for i in range(1000):
     time_taken.append(timeit.timeit(grow_array, number=1000)/1000)
 time1 = np.array(time_taken)
-plt.hist(time1, color='skyblue', edgecolor='black')
+plt.hist(time1, color='skyblue', edgecolor='black', label='Size S to S+1')
 
 # Q4
 def grow2_array():
@@ -60,7 +60,11 @@ time_taken2 = []
 for i in range(1000):
     time_taken2.append(timeit.timeit(grow2_array, number=1000)/1000)
 time2 = np.array(time_taken2)
-plt.hist(time2, color='green', edgecolor='black', alpha=0.5)
+plt.hist(time2, color='green', edgecolor='black', alpha=0.5, label='Size S-1 to S')
+plt.xlabel('Time Taken')
+plt.ylabel('Frequency')
+plt.title('Measurements of Growing the Array')
+plt.legend()
 
 plt.show()
 
