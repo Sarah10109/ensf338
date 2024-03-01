@@ -1,3 +1,6 @@
+import timeit
+import random
+
 '''
 In this exercise you will analyze the performance of different stack
 implementations
@@ -50,15 +53,13 @@ class Node:
         self._next = None
     
     # getters
-        
     def getValue(self):
         return self._value
-    
+
     def getNext(self):
         return self._next
         
     # setters
-
     def setValue(self, value):
         self._value = value
     
@@ -66,7 +67,6 @@ class Node:
         self._next = next
 
     # method for converting to string
-    
     def convertToString(self):
         return str(self._value)
 
@@ -95,3 +95,15 @@ class ListStack:
 
 # Q3. Write a function which generates random lists of 10000 tasks. Each
 # task is either a push w/ probability 0.7, or a pop w/ probability 0.3 [0.3 pts]
+def generate_tasks(n=10000):
+    randomTasks = []
+    for _ in range(n):
+        task = 'pop' if random.random() < 0.7 else 'push'
+        randomTasks.append(task)
+    return randomTasks
+
+
+# Q4. Measure the performance of both implementations on 100 such
+# lists of tasks using timeit and print the results [0.3 pts]
+
+# code in progress
