@@ -1,5 +1,6 @@
 import timeit
 import random
+import matplotlib.pyplot as plt
 
 '''
 In this exercise you will analyze the performance of different stack
@@ -66,10 +67,6 @@ class Node:
     def setNext(self, next):
         self._next = next
 
-    # method for converting to string
-    def convertToString(self):
-        return str(self._value)
-
 # Creating the singly-linked list based stack
 
 class ListStack:
@@ -106,4 +103,54 @@ def generate_tasks(n=10000):
 # Q4. Measure the performance of both implementations on 100 such
 # lists of tasks using timeit and print the results [0.3 pts]
 
-# code in progress
+
+def use_stack(StackClass, tasks):
+    stack = StackClass(10000) if StackClass.__name__ == 'ArrayQueue' else StackClass()
+    for task in tasks:
+        if task == 'push':
+            stack.push(1)  # for simplicity, 1 is used as the value to be pushed
+        else:
+            stack.pop()
+
+# generating random list of push/pop tasks
+task_lists = [generate_tasks() for _ in range(100)]
+
+# push/pop using ArrayStack
+def arrStack():
+    for tasks in task_lists:
+        use_stack(ArrayStack, tasks)
+
+# push/pop using ListStack
+def list_stack():
+    for tasks in task_lists:
+        use_stack(ListStack, tasks)
+
+timeArrayStack = timeit.timeit(lambda: arrStack(), number=1)
+print(f"Time for first implementation of ArrayStack: {timeArrayStack} seconds")
+
+timeListStack = timeit.timeit(lambda: list_stack(), number=1)
+print(f"Time for second implementation of ListStack: {timeListStack} seconds")
+
+# Q5. Plot the distribution of times (distributions for each implementation
+# should be overlayed in the same plot; make sure to use consistent
+# ranges) and discuss the results [0.3 pts]
+
+timesArrStack = [timeit.timeit(lambda: use_stack(ArrayStack, tasks), number=1) for tasks in task_lists]
+timesListStack = [timeit.timeit(lambda: use_stack(ListStack, tasks), number=1) for tasks in task_lists]
+
+
+plt.hist(timesArrStack, color='lightgreen', edgecolor='green', label='Array Stack')
+plt.hist(timesListStack, color='orange', edgecolor='brown', alpha=0.5, label='Linked List Stack')
+plt.xlabel('Performance Time')
+plt.ylabel('Frequency')
+plt.title('Time Measurements of Array and Linked List Implementations of Stack')
+plt.legend()
+plt.show()
+
+'''
+Based on the graph, the performance time for an array stack is lower than that of a linked list stack. This is because 
+for an array implementation, there is no need to traverse the stack to add or remove an element; both operations are 
+done at the tail end, which has constant time complexity. On the other hand, the performance time for a linked-list stack 
+is greater because in our implementation, there is no tail pointer to document the location of the end node. So, finding 
+the tail node requires iterating through the linked list, which takes linear time and is slower as a result.
+'''
