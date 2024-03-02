@@ -1,4 +1,4 @@
-
+import sys
 
 class myStack:
     def __init__(self):
@@ -6,7 +6,6 @@ class myStack:
     def push(self, value):
         self._storage.append(value)
     def pop(self):
-        # Note that in Python "not <list>" evaluates to True if the list is empty
         if not self._storage:
             return None
         else:
@@ -29,12 +28,13 @@ def calculatebracket(stackarg):
     while(i):
         stackelement = stackarg.pop()
         if(stackelement == '('):
-            stackarg.pop()
             break
         if(stackelement == ')'):
-            stackarg.pop()
             args[argcount] = str(calculatebracket(stackarg))
             argcount += 1
+            if(stackarg.peek() == ' '):
+                stackarg.pop()
+            continue
         if(stackelement == ' '):
             argcount += 1
             continue
@@ -43,19 +43,20 @@ def calculatebracket(stackarg):
     
     # arg[2] should be the sign, while arg[0] should be arg2 and arg[1] should be arg 1
     if(args[2] == '+'):
-        return (int(args[1]) + int(args[0]))
+        return (float(args[1]) + float(args[0]))
     elif (args[2] == '-'):
-        return (int(args[1]) - int(args[0]))
+        return (float(args[1]) - float(args[0]))
     elif (args[2] == '/'):
-        return (int(args[1]) / int(args[0]))
+        return (float(args[1]) / float(args[0]))
     elif (args[2] == '*'):
-        return (int(args[1]) * int(args[0]))
+        return (float(args[1]) * float(args[0]))
     else:
         return 'invalid entry'
 
-stk = tostack('(* (- 2 1) 3)')
+
+userarg = str(sys.argv[1])
+stk = tostack(userarg)
 stk.pop()
-#not working with nested arguments fix later
 print(calculatebracket(stk))
 
         
