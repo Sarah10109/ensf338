@@ -7,7 +7,7 @@ class ArrayCircularQueue():
 
     def enqueue(self, data):
         if ((self.tail + 1) % self.k == self.head):
-            print("enqueue Non\n")
+            print("enqueue None")
             return
         elif (self.head == -1):
             self.head = 0
@@ -20,7 +20,7 @@ class ArrayCircularQueue():
 
     def dequeue(self):
         if (self.head == -1):
-            print("dequeue None\n")
+            print("dequeue None")
             return
         elif (self.head == self.tail):
             temp = self.queue[self.head]
@@ -43,8 +43,8 @@ class ArrayCircularQueue():
 
 # Q2
 class Node:
-    def __init__(self):
-        self.data = None
+    def __init__(self, data):
+        self.data = data
         self.next = None
  
 class LLCircularQueue:
@@ -85,3 +85,78 @@ class LLCircularQueue:
         print(f"peek {self.front.data}")    
 
 # Q3
+# Initialize an ArrayCircularQueue with capacity 5
+print("Implementation of circular queue using an array of size 5:")
+array_queue = ArrayCircularQueue(5)
+
+# Enqueue some elements
+array_queue.enqueue(1)  # Expected output: "enqueue 1"
+array_queue.enqueue(2)  # Expected output: "enqueue 2"
+array_queue.enqueue(3)  # Expected output: "enqueue 3"
+array_queue.peek()      # Expected output: "peek 1"
+array_queue.enqueue(4)  # Expected output: "enqueue 4"
+array_queue.enqueue(5)  # Expected output: "enqueue 5"
+
+# Try to enqueue into a full queue
+array_queue.enqueue(6)  # Expected output: "enqueue None"
+
+# Dequeue some elements
+array_queue.dequeue()  # Expected output: "dequeue 1"
+array_queue.peek()      # Expected output: "peek 2"
+array_queue.dequeue()  # Expected output: "dequeue 2"
+array_queue.dequeue()  # Expected output: "dequeue 3"
+array_queue.dequeue()  # Expected output: "dequeue 4"
+array_queue.dequeue()  # Expected output: "dequeue 5"
+
+# Try to dequeue from an empty queue
+array_queue.dequeue()  # Expected output: "dequeue None"
+
+# Try to peek at an empty queue
+array_queue.peek()  # Expected output: "peek None"
+
+# Initialize an LLCircularQueue
+print("Implementation of circular queue using a linked list:")
+
+linked_list_queue = LLCircularQueue()
+
+# Enqueue some elements
+linked_list_queue.enQueue(1)  # Expected output: "enqueue 1"
+linked_list_queue.enQueue(2)  # Expected output: "enqueue 2"
+linked_list_queue.enQueue(3)  # Expected output: "enqueue 3"
+linked_list_queue.peek()      # Expected output: "peek 1"
+linked_list_queue.enQueue(4)  # Expected output: "enqueue 4"
+linked_list_queue.enQueue(5)  # Expected output: "enqueue 5"
+
+# Dequeue some elements
+linked_list_queue.deQueue()  # Expected output: "dequeue 1"
+linked_list_queue.deQueue()  # Expected output: "dequeue 2"
+linked_list_queue.peek()      # Expected output: "peek 3"
+linked_list_queue.deQueue()  # Expected output: "dequeue 3"
+linked_list_queue.deQueue()  # Expected output: "dequeue 4"
+linked_list_queue.deQueue()  # Expected output: "dequeue 5"
+
+# Try to dequeue from an empty queue
+linked_list_queue.deQueue()  # Expected output: "dequeue None"
+
+# Try to peek at an empty queue
+linked_list_queue.peek()  # Expected output: "peek None"
+
+# Enqueue more elements
+linked_list_queue.enQueue(6)  # Expected output: "enqueue 6"
+linked_list_queue.peek()      # Expected output: "peek 6"
+linked_list_queue.enQueue(7)  # Expected output: "enqueue 7"
+linked_list_queue.enQueue(8)  # Expected output: "enqueue 8"
+linked_list_queue.enQueue(9)  # Expected output: "enqueue 9"
+
+# Dequeue some elements
+linked_list_queue.deQueue()  # Expected output: "dequeue 6"
+linked_list_queue.deQueue()  # Expected output: "dequeue 7"
+linked_list_queue.deQueue()  # Expected output: "dequeue 8"
+linked_list_queue.peek()      # Expected output: "peek 9"
+linked_list_queue.deQueue()  # Expected output: "dequeue 9"
+
+# Try to dequeue from an empty queue
+linked_list_queue.deQueue()  # Expected output: "dequeue None"
+
+# Try to peek at an empty queue
+linked_list_queue.peek()  # Expected output: "peek None"
