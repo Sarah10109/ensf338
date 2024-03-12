@@ -56,23 +56,22 @@ random.shuffle(sorted_vector)
 for i in range(10000):
     insert(sorted_vector[i], rootrand)
 
-sortedtime = []
-shuffletime = []
+sortedtime = 0
+shuffletime = 0
 elements = [i for i in range(10000)]
 for i in range(10000):
     stime = timeit.timeit(lambda: search(sorted_vector[i], rootsort), number=10)
     rtime = timeit.timeit(lambda: search(sorted_vector[i], rootrand), number=10)
     savg = stime / 10
     ravg = rtime / 10
-    sortedtime.append(savg)
-    shuffletime.append(ravg)
-plt.plot(elements, sortedtime, color='red')
-plt.xlabel("Number of Elements")
-plt.ylabel("Average Time of each sorted element")
-plt.show()
+    sortedtime += (savg)
+    shuffletime += (ravg)
 
-plt.plot(elements, shuffletime, color='g')
-plt.xlabel("Number of Elements")
-plt.ylabel("Average Time of each shuffle element")
-plt.show()
+print("average of sorted ", sortedtime)
+print("Shuffled time: ", shuffletime)
+
+#Shuffled time is most of the time faster. it can be slower but its a low possibility of a bad shuffle that leads to mostly sorted list.
+
+
+
 
