@@ -88,5 +88,3 @@ def test_long_random_array():
 test_heap_already_sorted()
 test_empty_array()
 test_long_random_array()
-
-print("All tests passed!")

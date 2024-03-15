@@ -97,7 +97,7 @@ bst, shuffled_vector = generate_and_build_tree()
 
 # Measure search performance
 average_time, total_time = measure_search_performance(bst, shuffled_vector)
-
+print("Time using a binary search tree")
 print(f"Average search time per element: {average_time} seconds")
 print(f"Total search time for all elements: {total_time} seconds")
 
@@ -130,7 +130,7 @@ def measure_binary_search_performance(sorted_vector):
 # Now use the shuffled_vector for binary search performance measurement
 sorted_vector = sort_vector(shuffled_vector)  # Sort the shuffled vector
 average_time, total_time = measure_binary_search_performance(sorted_vector)
-
+print("Time using binary search in an array")
 print(f"Average binary search time per element: {average_time} seconds")
 print(f"Total binary search time for all elements: {total_time} seconds")
 
