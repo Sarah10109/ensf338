@@ -19,33 +19,32 @@ class ListPriorityQueue:
 
     def enqueue(self, data):
         new_node = ListNode(data)
-        current_Data = self.head.data
-        if self.head is None or data < current_Data:
+
+        if self.head == None or data < self.head.data:
             new_node.next = self.head
             self.head = new_node 
         else:
-            current = self.head
-            next_data = current.next.data
-            while current.next is not None and next_data < data:
-                current = current.next
-            new_node.next = current.next
-            current.next = new_node
+            current_node = self.head
+            while current_node.next != None and current_node.next.data < data:
+                current_node = current_node.next
+            new_node.next = current_node.next
+            current_node.next = new_node
 
     def dequeue(self):
-        if self.head is None:
+        if self.head == None:
             print("Queue is empty. Nothing to dequeue.")
             return None
         else:
-            dequeued_node = self.head
+            dequeued = self.head
             self.head = self.head.next
-            return dequeued_node.data
+            return dequeued.data
 
 
 '''
 2. Implement a class HeapPriorityQueue which implements a priority queue using a heap: [0.2 pts]
     1. Can reuse implementation from Exercise 4
 '''
-# from Exercise 4, we have the MinHeap class:
+# from Exercise 4, we have the following implementation of MinHeap:
 class MinHeap:
     def __init__(self):
         self.heap = []
@@ -101,9 +100,8 @@ probability 0.7, and dequeue with probability 0.3
 
 '''
 
-# Q3. Write a function which generates random lists of 10000 tasks. Each
-# task is either a push w/ probability 0.7, or a pop w/ probability 0.3 [0.3 pts]
-def generate_tasks(n=10000):
+# Generating a random list of 1000 tasks
+def generate_tasks(n=1000):
     randomTasks = []
     for _ in range(n):
         task = 'enqueue' if random.random() < 0.7 else 'dequeue'
@@ -113,24 +111,42 @@ def generate_tasks(n=10000):
 
 tasks = generate_tasks()
 
-# Measure execution time for ListPriorityQueue
-list_pq = ListPriorityQueue()
-list_pq_time = timeit.timeit(lambda: [list_pq.enqueue(task[1]) if task[0] == 'enqueue' else list_pq.dequeue() for task in tasks], number=1)
-print(f"ListPriorityQueue took {list_pq_time} seconds overall, {list_pq_time / len(tasks)} seconds per task")
+# Q4. Measure execution time of both implementations [0.4 pts]
+def measure_execution_time(tasks, queue):
+    total_time = timeit.timeit(lambda: execute_tasks(tasks, queue), number=1)
+    average_time_per_task = total_time / len(tasks)
+    return total_time, average_time_per_task
 
-# Measure execution time for HeapPriorityQueue
-heap_pq = MinHeap()
-heap_pq_time = timeit.timeit(lambda: [heap_pq.enqueue(task[1]) if task[0] == 'enqueue' else heap_pq.dequeue() for task in tasks], number=1)
-print(f"HeapPriorityQueue took {heap_pq_time} seconds overall, {heap_pq_time / len(tasks)} seconds per task")
+def execute_tasks(tasks, queue):
+    for task in tasks:
+        if task == 'enqueue':
+            queue.enqueue(random.randint(1, 100))
+        else:
+            try:
+                queue.dequeue()
+            except IndexError:
+                pass  # pass if the queue is empty
 
+# Create instances of both linked-list and heap-based priority queues
+list_priorityqueue = ListPriorityQueue()
+heap_priorityqueue = MinHeap()
+
+# Measure and print time for ListPriorityQueue
+total_time_list, avg_time_list = measure_execution_time(tasks, list_priorityqueue)
+print(f"ListPriorityQueue - Total time: {total_time_list}, Average time per task: {avg_time_list}")
+
+# Measure and print time for HeapPriorityQueue
+total_time_heap, avg_time_heap = measure_execution_time(tasks, heap_priorityqueue)
+print(f"HeapPriorityQueue - Total time: {total_time_heap}, Average time per task: {avg_time_heap}")
 
 
 '''
 4. Discuss the results: which implementation is faster? Why do you think is that?
 [0.2 pts]
 
-The heap implementation of priority queue is faster because it has logarithmic time complexity for both its inset and delete operations.
-
-
+The heap implementation of priority queue is faster because it has logarithmic time complexity for both its insert and delete operations,
+since our implementation of heap has a balanced tree stucture and can sift up or sift down nodes to maintain the heap properties.
+On the other hand, ListPriorityQueue is slower because it takes longer to enqueue, and in the worst case scenario the program may
+need to traverse the entire list in order to find the correct insertion point. 
 
 '''
