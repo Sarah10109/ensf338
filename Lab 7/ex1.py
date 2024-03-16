@@ -1,3 +1,6 @@
+import random
+import timeit
+import matplotlib.pyplot as plt
 class Node:
     def __init__(self, data, parent=None, left=None, right=None):
         self.parent = parent
@@ -37,11 +40,18 @@ def search(data, root):
             current = current.right
     return None
 
-def calcbalancetree(root, balarray): 
+def calcbalancetree(root, biggest): 
     if root is not None:
-        balarray.append(calcbalance(root)) # Depth-first, pre-order traversal style
-        calcbalancetree(root.left, balarray)
-        calcbalancetree(root.right, balarray)
+        data = (abs(calcbalance(root))) # Depth-first, pre-order traversal style
+        if data > biggest:
+            biggest = data
+        check2 = calcbalancetree(root.left, biggest)
+        check1 = calcbalancetree(root.right, biggest)
+        if check1 > biggest:
+            biggest = check1
+        if check2 > biggest:
+            biggest = check2
+    return biggest
 def height(node):
     if node is None:
         return 0
@@ -51,3 +61,28 @@ def calcbalance(root):
     if root is None:
         return 0
     return height(root.right) - height(root.left)
+xaxis = []
+yaxis = []
+randoset = [i for i in range(1000)]
+for i in range(1000):
+    random.shuffle(randoset)
+    biggest = 0
+    roottest = insert(randoset[0])
+    for j in range(1, 1000):
+        insert(randoset[j], roottest)
+    stime = timeit.timeit(lambda: calcbalancetree(roottest, biggest), number=10)
+    value = calcbalancetree(roottest, biggest)
+    avgtime = stime / 10
+    yaxis.append(avgtime)
+    xaxis.append(value)
+    
+    
+plt.scatter(xaxis, yaxis)
+plt.show()
+
+
+
+
+
+
+
