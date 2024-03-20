@@ -72,7 +72,7 @@ def insert(data, root=None):
     elif (pivot.balance > 0 and newnode.data < pivot.data) or (pivot.balance < 0 and newnode.data > pivot.data):
         print("Case #2: A pivot exists, and a node was added to the shorter subtree")
     else:
-        print("Case #3: Not supported") # if none of the above, case 3 must be true, hence the message "Case #3: Not supported" is printed
+        print("Case 3 not supported") # if none of the above, case 3 must be true, hence the message "Case #3: Not supported" is printed
 
     return newnode
 
