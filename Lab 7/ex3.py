@@ -46,10 +46,10 @@ def insert(data, root=None):
     else: #Q3
         # Checking Case #3a: adding a node to an outside subtree
         if (pivot.balance > 0 and pivot.right and newnode.data > pivot.right.data):
-            print("Case #3a: adding a node to an outside subtree")
+            print("Case #3a: Adding a node to an outside subtree")
             root = _left_rotate(pivot)
         elif (pivot.balance < 0 and pivot.left and newnode.data < pivot.left.data):
-            print("Case #3a: adding a node to an outside subtree")
+            print("Case #3a: Adding a node to an outside subtree")
             root = _right_rotate(pivot)
         else:
             # Checking Case #3b: adding a node to an inside subtree
@@ -67,19 +67,6 @@ def search(data, root):
         else:
             current = current.right
     return None
-
-def calcbalancetree(root, biggest): 
-    if root is not None:
-        data = (abs(calcbalance(root))) # Depth-first, pre-order traversal style
-        if data > biggest:
-            biggest = data
-        check2 = calcbalancetree(root.left, biggest)
-        check1 = calcbalancetree(root.right, biggest)
-        if check1 > biggest:
-            biggest = check1
-        if check2 > biggest:
-            biggest = check2
-    return biggest
 
 def height(node):
     if node is None:
@@ -136,5 +123,5 @@ root = insert(30, root) # case 1
 root = insert(20, root) # case 1
 root = insert(40, root) # case 2
 # Q4
-root = insert(10, root) # case 3
+root = insert(10, root) # case 3a
 root = insert(25, root) # case 3b
