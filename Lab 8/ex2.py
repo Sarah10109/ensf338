@@ -2,7 +2,11 @@
 #     the algorithm
 
 
-
+'''
+Two possible ways to implement the queue:
+    1. Array implementation
+    2. Priority queue implementation using a heap
+'''
 
 
 
