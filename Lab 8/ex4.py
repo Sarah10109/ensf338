@@ -34,23 +34,19 @@ class Graph:
     def importFromFile(self, file):
         with open(file, 'r') as f:
             lines = f.readlines()
-
         # Check if the graph is undirected
         if not lines[0].strip() == "strict graph G {":
             return None
-
         # Clear existing nodes and edges
         self.adjacency_list.clear()
-
         # Parse edges
         for line in lines[1:-1]:
-            match = re.match(r'(\w+) -- (\w+)( \[weight=(\d+)\])?;', line.strip())
+            match = re.match(r'\s*(\w+)\s*--\s*(\w+)(\s*\[weight=(\d+)\])?\s*;', line.strip())
             if match is None:
                 return None
 
             node1_data, node2_data, _, weight = match.groups()
             weight = int(weight) if weight is not None else 1
-
             node1 = self.addNode(node1_data)
             node2 = self.addNode(node2_data)
             self.addEdge(node1, node2, weight)
@@ -136,7 +132,7 @@ class Graph2:
 
         # Parse edges
         for line in lines[1:-1]:
-            match = re.match(r'(\w+) -- (\w+)( \[weight=(\d+)\])?;', line.strip())
+            match = re.match(r'\s*(\w+)\s*--\s*(\w+)(\s*\[weight=(\d+)\])?\s*;', line.strip())
             if match is None:
                 return None
 
@@ -213,4 +209,47 @@ traversal = graph2.dfs(node1)
 # Print the traversal
 print(traversal)  # Output: ['1', '2', '4', '3']
 
-# Q3 STILL NOT DONE
+# Q3
+# Using the adjacency list
+graph3 = Graph()
+graph3.importFromFile("random.dot")
+start_node = list(graph3.adjacency_list.keys())[0]  # or any node of your choice
+def graphTime():
+    graph3.dfs(start_node)
+
+times = timeit.repeat(graphTime, number=10)
+print("Time for graph of adjacency list:")
+print(f"Maximum time: {max(times)}")
+print(f"Minimum time: {min(times)}")
+print(f"Average time: {sum(times) / len(times)}")
+
+# Using the adjacency matrix
+graph4 = Graph2()
+graph4.importFromFile("random.dot")
+start_node = graph4.nodes[0]
+
+def graphTime2():
+    graph4.dfs(start_node)
+
+time2 = timeit.repeat(graphTime2, number=10)
+
+# Print the maximum, minimum, and average time
+print("Time for graph of adjacency matrix:")
+print(f"Maximum time: {max(time2)}")
+print(f"Minimum time: {min(time2)}")
+print(f"Average time: {sum(time2) / len(time2)}")
+
+'''
+Q3
+Time for graph of adjacency list is faster than that of the adjacency matrix.
+
+Adjacency List: In an adjacency list, each node maintains a list of its adjacent nodes. This makes it very 
+efficient to iterate over the neighbors of a particular node, which is a common operation in depth-first search (DFS). 
+The DFS algorithm for an adjacency list representation runs in O(V + E) time, where V is the number of vertices and E is the 
+number of edges. This is because each vertex and each edge will be explored exactly once.
+
+Adjacency Matrix: In an adjacency matrix, the graph is represented as a 2D array. To find the neighbors of a node, 
+you need to scan an entire row (or column), which takes O(V) time, where V is the number of vertices. Therefore, even 
+if a node has only a few neighbors, you still need to scan all the entries in a row or column. This makes the DFS algorithm 
+for an adjacency matrix representation run in O(V^2) time.
+'''
