@@ -44,7 +44,7 @@ class Graph:
 
         # Parse edges
         for line in lines[1:-1]:
-            match = re.match(r'(\w+) -- (\w+)( \[weight=(\d+)\])?;', line.strip())
+            match = re.match(r'\s*(\w+)\s*--\s*(\w+)(\s*\[weight=(\d+)\])?\s*;', line.strip())
             if match is None:
                 return None
 
