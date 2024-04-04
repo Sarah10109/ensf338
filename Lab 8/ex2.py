@@ -180,6 +180,7 @@ print(f"max: {slowSP_times[0][0]}, min: {slowSP_times[0][1]}, average: {slowSP_t
 print("fastSP performance times:")
 print(f"max: {fastSP_times[0][0]}, min: {fastSP_times[0][1]}, average: {fastSP_times[0][2]}")
 
+# Report average, max, and min time
 '''
 On the first run, the max, min, and average times of both algorithms are as follows:
 
