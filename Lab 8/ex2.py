@@ -170,7 +170,7 @@ def measure_performance_fastSP(graph):
 
 
 # test the overall timing 
-graph = create_graph("random.dot")
+graph = create_graph("random.dot") # may have to specify full file path if name alone doesn't work; adjust as needed
 slowSP_times = measure_performance_slowSP(graph) 
 fastSP_times = measure_performance_fastSP(graph)
 
@@ -180,7 +180,15 @@ print(f"max: {slowSP_times[0][0]}, min: {slowSP_times[0][1]}, average: {slowSP_t
 print("fastSP performance times:")
 print(f"max: {fastSP_times[0][0]}, min: {fastSP_times[0][1]}, average: {fastSP_times[0][2]}")
 
+'''
+On the first run, the max, min, and average times of both algorithms are as follows:
 
+slowSP performance times:
+max: 0.026237434999984544, min: 0.0075148449998323485, average: 0.009259502954784596
+
+fastSP performance times:
+max: 0.0012379199999941193, min: 6.047099986972171e-05, average: 6.95059247313924e-05
+'''
 
 
 # Q4. Plot a histogram of the distribution of execution times across all
@@ -205,6 +213,11 @@ plt.show()
 '''
 Discussion of timing results:
 
-in progress...
+Overall, the execution time of fastSP is faster than that of slowSP. This is because
+fastSP is implemented with a heap-based priority queue, which stores the node with the smallest 
+distance at the top, and extracting this node can be acheieved in O(log(n)) time. On the other hand,
+slowSP uses linear search and traverses through all nodes in the queue until the one with the smallest
+distance is found. To extract the node with the smallest distance using this method takes O(n) time, which
+is much less efficient than fastSP.
 
 '''
