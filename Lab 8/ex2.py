@@ -2,6 +2,7 @@ import time
 import timeit
 import heapq
 import matplotlib.pyplot as plt
+import re
 
 
 # Q1. List two possible ways to implemenent queue for finding a node in 
@@ -50,7 +51,31 @@ class Graph:
             self.adjacency_list[n1] = [(node, weight) for node, weight in self.adjacency_list[n1] if node != n2]
             self.adjacency_list[n2] = [(node, weight) for node, weight in self.adjacency_list[n2] if node != n1]
     
+    def importFromFile(self, file):
+        with open(file, 'r') as f:
+            lines = f.readlines()
 
+        # Check if the graph is undirected
+        if not lines[0].strip() == "strict graph G {":
+            return None
+
+        # Clear existing nodes and edges
+        self.adjacency_list.clear()
+
+        # Parse edges
+        for line in lines[1:-1]:
+            match = re.match(r'\s*(\w+)\s*--\s*(\w+)(\s*\[weight=(\d+)\])?\s*;', line.strip())
+            if match is None:
+                return None
+
+            node1_data, node2_data, _, weight = match.groups()
+            weight = int(weight) if weight is not None else 1
+
+            node1 = self.addNode(node1_data)
+            node2 = self.addNode(node2_data)
+            self.addEdge(node1, node2, weight)
+
+        return self
     # Algorithms for calculating minimum distance between nodes
     def slowSP(self, source):
         distances = {node: float('inf') for node in self.adjacency_list}
@@ -93,122 +118,60 @@ class Graph:
 #       • Time the execution of the algorithm, for all nodes
 #       • Report average, max and min time
 
+# Initialize the Graph
+g = Graph()
+g.importFromFile("random.dot")
 
-# parsing contents of the random.dot file to create a graph for testing
-def create_graph(filename):
-    graph = Graph()
-    with open(filename, 'r') as file:
-        lines = file.readlines()[1:-1]  # read all lines and store in list, except the first and last line
-        for line in lines:
-            node_1, _, node_2, weight = line.split()
-            weight = int(weight.split('=')[1][:-2])  # remove the '[weight=' and '];' part of the text, keep only the number
-            # create nodes of graph
-            node_1 = graph.addNode(int(node_1)) # convert the string to an int before storing
-            node_2 = graph.addNode(int(node_2))
-            # create the connecting edge between the two nodes
-            graph.addEdge(node_1, node_2, weight)
-    return graph
+# Initialize the lists to store the execution times
+slow_times = []
+fast_times = []
 
+# Get a subset of the nodes
+nodes_subset = list(g.adjacency_list.keys())[:100]  # Adjust this value based on your needs
 
-# function to measure performance times of slowSP
-def measure_performance_slowSP(graph):
-    nodes_in_graph = list(graph.adjacency_list.keys())
-    max_times = [] # stores max time of every iteration (max performance time of one node) in graph 
-    min_times = [] # stores min time of every iteration in graph
-    avg_times = [] # stores average time of every iteration in graph
-    finalTimes = [] # stores three values in the following order: overall max, overall min, and overall avg times of graph
-    performance_times = [] # stores all the performance times of graph across all iterations (to be used in histogram)
-    
-    for node in nodes_in_graph:
-        # time = timeit.timeit(lambda: graph.slowSP(node), number=10) / 10
-        times = timeit.repeat(lambda: graph.slowSP(node), repeat=10, number=1)
-        for time in times:
-            performance_times.append(time)
+# Measure the execution time of each algorithm for each node in the subset
+for node in nodes_subset:
+    # Measure the execution time of slowSP(node)
+    start_time = timeit.default_timer()
+    g.slowSP(node)
+    end_time = timeit.default_timer()
+    slow_times.append(end_time - start_time)
 
-        max_times.append(max(times))
-        min_times.append(min(times))
-        avg_times.append(sum(times)/len(times))
-    
-    max_time_of_graph = max(max_times)
-    min_time_of_graph = min(min_times)
-    avg_time_of_graph = sum(avg_times)/len(avg_times)
+    # Measure the execution time of fastSP(node)
+    start_time = timeit.default_timer()
+    g.fastSP(node)
+    end_time = timeit.default_timer()
+    fast_times.append(end_time - start_time)
 
-    finalTimes.append(max_time_of_graph)
-    finalTimes.append(min_time_of_graph)
-    finalTimes.append(avg_time_of_graph)
+# Calculate the average, max, and min time for each algorithm
+slow_avg = sum(slow_times) / len(slow_times)
+slow_max = max(slow_times)
+slow_min = min(slow_times)
 
-    return finalTimes, performance_times
+fast_avg = sum(fast_times) / len(fast_times)
+fast_max = max(fast_times)
+fast_min = min(fast_times)
 
-# function to measure performance times of fastSP
-def measure_performance_fastSP(graph):
-    nodes_in_graph = list(graph.adjacency_list.keys())
-    max_times = [] # stores max time of every iteration in graph 
-    min_times = [] # stores min time of every iteration in graph
-    avg_times = [] # stores average time of every iteration in graph
-    finalTimes = [] # stores in order: overall max, overall min, overall avg times of graph
-    performance_times = [] #stores all the performance times of graph across all iterations (to be used in histogram)
-    
-    
-    for node in nodes_in_graph:
-        times = timeit.repeat(lambda: graph.fastSP(node), repeat=10, number=1)
-        for time in times:
-            performance_times.append(time)
+# Print the results
+print(f"slowSP(node): avg = {slow_avg}, max = {slow_max}, min = {slow_min}")
+print(f"fastSP(node): avg = {fast_avg}, max = {fast_max}, min = {fast_min}")
 
-        max_times.append(max(times))
-        min_times.append(min(times))
-        avg_times.append(sum(times)/len(times))
-    
-    max_time_of_graph = max(max_times)
-    min_time_of_graph = min(min_times)
-    avg_time_of_graph = sum(avg_times)/len(avg_times)
+# Plot the histogram for slowSP(node)
+plt.figure(figsize=(10, 5))
+plt.hist(slow_times, bins=30, alpha=0.5, color='r', label='slowSP(node)', edgecolor='black')
+plt.xlabel('Execution Time')
+plt.ylabel('Frequency')
+plt.title('Histogram of Execution Times for slowSP(node)')
+plt.legend()
+plt.show()
 
-    finalTimes.append(max_time_of_graph)
-    finalTimes.append(min_time_of_graph)
-    finalTimes.append(avg_time_of_graph)
-
-    return finalTimes, performance_times
-
-
-# test the overall timing 
-graph = create_graph("random.dot") # may have to specify full file path if name alone doesn't work; adjust as needed
-slowSP_times = measure_performance_slowSP(graph) 
-fastSP_times = measure_performance_fastSP(graph)
-
-print("slowSP performance times:")
-print(f"max: {slowSP_times[0][0]}, min: {slowSP_times[0][1]}, average: {slowSP_times[0][2]}\n")
-
-print("fastSP performance times:")
-print(f"max: {fastSP_times[0][0]}, min: {fastSP_times[0][1]}, average: {fastSP_times[0][2]}")
-
-# Report average, max, and min time
-'''
-On the first run, the max, min, and average times of both algorithms are as follows:
-
-slowSP performance times:
-max: 0.026237434999984544, min: 0.0075148449998323485, average: 0.009259502954784596
-
-fastSP performance times:
-max: 0.0012379199999941193, min: 6.047099986972171e-05, average: 6.95059247313924e-05
-'''
-
-
-# Q4. Plot a histogram of the distribution of execution times across all
-#     nodes, and discuss the results
-
-# Generate random data for the histogram
-data_slowSP = slowSP_times[1]
-data_fastSP = fastSP_times[1]
- 
-# Plotting a basic histogram
-plt.hist(data_slowSP, bins=30, color='skyblue', edgecolor='black')
-plt.hist(data_fastSP, bins=30, color='lightgreen', edgecolor='black')
- 
-# Adding labels and title
-plt.xlabel('Execution times')
+# Plot the histogram for fastSP(node)
+plt.figure(figsize=(10, 5))
+plt.hist(fast_times, bins=30, alpha=0.5, color='b', label='fastSP(node)', edgecolor='black')
+plt.xlabel('Execution Time')
 plt.ylabel('Frequency')
 plt.title('Distribution of Execution Times Across all Nodes in Graph')
- 
-# Display the plot
+plt.legend()
 plt.show()
 
 '''
